@@ -26,4 +26,4 @@ RUN cargo build --release
 ENV RUST_BACKTRACE=1
 
 # Run the binary
-CMD ["./target/release/etherdream-emulator"]
+CMD ["./target/release/etherdream-emulator", "--point", "10.0"]
