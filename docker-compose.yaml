@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "42372:42372/udp"
+      - "7765:7765/tcp"
+    volumes:
+      - ./etc:/usr/src/app/etc
+      # GUI
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${HOME}/.Xauthority:/root/.Xauthority:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      DISPLAY: "${DISPLAY}"
+        #WINIT_UNIX_BACKEND: "wayland"
+        #MESA_LOADER_DRIVER_OVERRIDE: "iris"
+      RUST_BACKTRACE: "full"
+
+# To build
+# sudo docker-compose build
+
+# To run
+# sudo docker-compose up -d
+
+# To run interactive shell
+# sudo docker-compose run  web sh 
